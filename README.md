@@ -1,2 +1,5 @@
-# ct-tract-to-town-tool
-Connecitcut Census Tract to Town
+# Connecitcut Census Tract to Town Converter
+
+[Live](https://ct-data-collaborative.github.io/ct-tract-to-town-tool/)
+
+![Screenshot](screenshot.png)
