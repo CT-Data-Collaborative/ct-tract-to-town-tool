@@ -1,0 +1,69 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Connecticut Census Tract to Town Converter by CTData</title>
+  <meta name="description" content="Connecticut Census Tract to Town">
+  <meta name="author" content="Connecticut Data Collaborative">
+
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+
+<body class="avenir">
+  
+    <header class="mw8 center mt4 pa3">
+        <h2 class="f2 ma0 black-30">Connecticut</h2>
+        <h1 class="f1 ma0">Census Tract to Town</h1>
+        <h2 class="f2 ma0 black-30">Converter</h2>
+
+        <p class="f4 lh-copy">
+            This tool lets you convert Connecticut Census tracts into towns where these tracts are located. In the input area,
+            type one or more tract numbers. They can be short (eg 303 for Darien) or long
+            (9007610100 for Clinton or 1400000US09001220200 for New Fairfield).
+            Keep it one per line. Press the arrow button to convert.
+        </p>
+    </header>
+
+    <div class="mw8 center pa3 cf">
+        <textarea class="w-40-ns w-100 vh-50 fl pa3" style="outline: none" placeholder="Input" id="input"></textarea>
+        <div class="fl w-100 w-20-ns tc pv4">
+            <button class="f3 bg-green bw0 white ph4 pv2 hover-bg-orange bg-animate"> &rarr; </button>
+        </div>
+        <textarea class="w-100 w-40-ns vh-50 fr pa3" placeholder="Output" id="output"></textarea>
+    </div>
+
+    <footer class="mw8 center pa3 mt4 bt bw1 b--black-10">
+        <p> &copy; 2019 Connecticut Data Collaborative </p>
+        <p>
+            For any questions or feedback, write to <a href="mailto:info@ctdata.org?Subject=Census Tract to Town Tool" class="link hover-orange">info@ctdata.org</a>.
+    </footer>
+
+    <script>
+        $.getJSON('data/tract2town.json', function(tract2town) {
+            $('button').click(function() {
+                var input = $('#input').val().split('\n')
+                var output = input.map(function(el) {
+                    el = el.trim()
+                    return tract2town[el] ? tract2town[el] : '?' + el
+                })
+
+                $('#output').val(output.join('\n'))
+            })
+        })
+
+        $('#input').scroll(function(){$('#output').scrollTop($(this).scrollTop())})
+        $('#output').scroll(function(){$('#input').scrollTop($(this).scrollTop())})
+    </script>
+
+    <style>
+        textarea {
+            resize: none;
+        }
+    </style>
+
+</body>
+</html>
